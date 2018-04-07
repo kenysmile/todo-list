@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+</head>
+<body>
+
+    hello {{ user_id }} <i class="fa fa-user" aria-hidden="true"></i>
+
+      <form action="" method="post">
+        <input type="text" placeholder="work" name="work" value="{{
+          request.form.work }}">
+        <input type="text" class="form-add-date" placeholder="date" name="date" value="{{
+          request.form.date }}">
+        <input class="btn btn-default" type="submit" value="ADD">
+      </form>
+
+      <ul>
+          {% for user in users %}
+              <li style="font-size: 20pt"><input type="radio" >{{ user }}<a href="{{ url_for('remove') }}">Remove</a></li>
+
+
+          {% endfor %}
+      </ul>
+
+</body>
+</html>
