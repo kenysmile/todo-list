@@ -1,38 +1,31 @@
 import sqlite3
-db = []
-tu = (
-    ('Tu', 'phamvantu'),
-    ('Tuan','nguyentrongtuan'),
-    ('Nam', 'giangvannam')
-)
-# todo = (
-#     ('football', 'Tu', '2018-1-1'),
-#     ('tennis', 'Tuan', '2018-2-2'),
-#     ('swimming', 'Thanh', '2018-3-3')
+
+# tu = (
+# 	('tu', 'phamvantu'),
+# 	('tuan', 'nguyentrongtuan'),
+# 	('nam', 'giangvannam')
 # )
-con = sqlite3.connect('pvt.db')
-a = []
-b = []
-
-# with con:
-#     cur = con.cursor()
-#     cur.execute("DROP TABLE IF EXISTS Pvt")
-#     cur.execute("CREATE TABLE Pvt(Ten Varchar(20) PRIMARY KEY , Hoten Varchar(20), work Varchar(20))")
-#     cur.executemany("INSERT INTO Pvt VALUES( ?, ?, ?)", tu)
-
-# with con:
-#     cur = con.cursor()
-#     cur.execute("DROP TABLE IF EXISTS User")
-#     cur.execute("CREATE TABLE User(Use Varchar(20) PRIMARY KEY , pas Varchar(20))")
-#     cur.executemany("INSERT INTO User VALUES( ?, ?)", tu)
-#
-#
-# a = []
-# b = []
-# con = sqlite3.connect("pvt.db")
+# con = sqlite3.connect('pvt')
 # cur = con.cursor()
-# cur.execute("SELECT Ten FROM Pvt")
-# dbs = cur.fetchall()
+# cur.execute("DROP TABLE IF EXISTS Login")
+# cur.execute("CREATE TABLE Login(Use TEXT PRIMARY KEY , pas TEXT)")
+# cur.executemany("INSERT INTO Login(Use, pas) VALUES(?, ?)", tu)
+
+def registryUser(username,password):
+    con = sqlite3.connect("pvt.db")
+    cur = con.cursor()
+    cur.execute("INSERT INTO User (Use,pas) VALUES (?,?)", (username,password))
+    con.commit()
+    con.close()
+def selectUser():
+	con = sqlite3.connect('pvt.db')
+	cur = con.cursor()
+	cur.execute("select * from User")
+	username = cur.fetchall()
+	return username
+#print(selectUser())
+# registryUser('Quyen','dobaquyen')
+
 
 def insertUsers(todo, use, ngay):
 	con = sqlite3.connect("pvt.db")
@@ -40,23 +33,15 @@ def insertUsers(todo, use, ngay):
 	cur.execute("INSERT INTO Phamtu (Todo, Use, ngay) VALUES (?, ?, ?)", (todo, use, ngay))
 	con.commit()
 	con.close()
-# print(insertUsers('ccccc', 'Tu', '2018-5-5 '))
-# def insertUsers(k, v, work):
-# 	con = sqlite3.connect("pvt.db")
-# 	cur = con.cursor()
-# 	cur.execute("INSERT INTO Pvt (Ten, Hoten, work) VALUES (?, ?, ?)", (k, v, work))
-# 	con.commit()
-# 	con.close()
-#print(insertUsers('lsdasdfghg', 'Tuan', '2018-2-2'))
+#print(insertUsers('Work', 'Tuan', '2018-6-6'))
+
 def retrieveUsers(name):
 	con = sqlite3.connect("pvt.db")
 	cur = con.cursor()
 	cur.execute("SELECT Todo FROM Phamtu WHERE Use = '%s' " % name)
 	users = cur.fetchall()
-
-	# con.close()
 	return users
-# print(retrieveUsers('Tu'))
+#print(retrieveUsers('Tuan'))
 
 
 def editUsers(name):
@@ -70,5 +55,6 @@ def removeUsers(todo):
 	cur = con.cursor()
 	cur.execute("delete from Phamtu where Todo = '%s'" % todo)
 
-	# con.close()
+
+
 

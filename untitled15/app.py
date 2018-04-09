@@ -3,25 +3,23 @@ import sqlite3
 import model as dbHandler
 app = Flask(__name__)
 
-a = []
-b = []
-c = []
-con = sqlite3.connect("pvt.db")
-cur = con.cursor()
-
-cur.execute("SELECT Use, pas FROM User")
-items = cur.fetchall()
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    con = sqlite3.connect("pvt.db")
+    cur = con.cursor()
 
+    cur.execute("SELECT Use, pas FROM User")
+    items = cur.fetchall()
     error = None
+    user_id = request.cookies.get('use')
+    user_data = request.cookies.get('data')
 
     if request.method == 'POST':
         for (k,v) in items:
             if request.form['username'] == k and request.form['password'] == v:
                 response = redirect(url_for("index"))
                 response.set_cookie('user', k)
+
                 response.set_cookie('pass', v)
                 return response
             else:
@@ -31,8 +29,6 @@ def login():
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     user_id = request.cookies.get('user')
-    user_pass = request.cookies.get('pass')
-    #users = request.cookies.get('users')
     users = dbHandler.retrieveUsers(user_id)
     if request.method == 'POST':
         todo = request.form['work']
@@ -71,39 +67,24 @@ def remove():
     dbHandler.retrieveUsers(user_id)
     return redirect(url_for('index'))
 
+@app.route('/registry', methods=['GET', 'POST'])
+def registry():
+
+    error = None
+    if request.method == 'POST':
+        name = request.form['user']
+        pas = request.form['pass']
+        dbHandler.registryUser(name, pas)
+        dbHandler.selectUser()
+
+        re = redirect(url_for('login'))
+        re.set_cookie('use', name)
+        re.set_cookie('pas', pas)
+        return re
+    else:
+        error = 'False'
+    return render_template('registry.html', error=error)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-# @app.route('/add', methods=['GET', 'POST'])
-# def add():
-#
-#     if request.method == 'POST':
-#         todo = request.form['work']
-#         dbHandler.insertUser(k=k, v=v, todo=todo)
-#         users1 = dbHandler.retrieveUsers()
-#         return url_for('')
-#     else:
-#         return render_template('index.html')
-#
-# if __name__ == '__main__':
-#     app.run(debug=True)
