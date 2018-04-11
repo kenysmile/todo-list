@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for movie in movies %}
-    <li><h1>{{ movie.title }}</h1>
-    <form action="{{ url_for('delete_movie', movie_name=movie.name) }}" method=post>
-        <input type=submit value=Delete">
-    </form>
-{% endfor %}
-
-</body>
-</html>
+%#template for editing a task
+%#the template expects to receive a value for "no" as well a "old", the text of the selected ToDo item
+<p>Edit the task with ID = {{no}}</p>
+<form action="/edit/{{no}}" method="get">
+<input type="text" name="task" value="{{old[0]}}" size="100" maxlength="100">
+<select name="status">
+<option>open</option>
+<option>closed</option>
+</select>
+<br/>
+<input type="submit" name="save" value="save">
+</form>

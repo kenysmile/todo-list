@@ -5,19 +5,21 @@ app = Flask(__name__)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     con = sqlite3.connect("pvt.db")
     cur = con.cursor()
+
     cur.execute("SELECT Use, pas FROM User")
     items = cur.fetchall()
     error = None
-    # user_id = request.cookies.get('use')
-    # user_data = request.cookies.get('data')
+    user_id = request.cookies.get('use')
+    user_data = request.cookies.get('data')
+
     if request.method == 'POST':
         for (k,v) in items:
             if request.form['username'] == k and request.form['password'] == v:
                 response = redirect(url_for("index"))
                 response.set_cookie('user', k)
+
                 response.set_cookie('pass', v)
                 return response
             else:
@@ -32,7 +34,7 @@ def index():
         todo = request.form['work']
         ngay = request.form['date']
         dbHandler.insertUsers(todo, user_id, ngay)
-        data = dbHandler.retrieveUsers(user_id)
+        dbHandler.retrieveUsers(user_id)
 
         return redirect(url_for('add'))
     else:
@@ -53,43 +55,36 @@ def add():
         res.set_cookie('todo', todo)
         return res
     else:
-        error = None
+        error = 'Bug'
     return render_template('index.html', users = users, error=error)
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    a = []
-    con = sqlite3.connect("pvt.db")
-    cur = con.cursor()
-    cur.execute("SELECT Use, pas FROM User")
-    items = cur.fetchall()
-    error = None
-
-    if request.method == 'POST':
-        name = request.form['user']
-        pas = request.form['pass']
-        dbHandler.registerUser(name, pas)
-
-        return redirect(url_for('login'))
-    else:
-       # error = 'False'
-        return render_template('register.html', error=error)
 
 @app.route('/remove')
 def remove():
-    a = []
     user_id = request.cookies.get('user')
-    users = dbHandler.retrieveUsers(user_id)
+    todo = request.cookies.get('todo')
 
-    for user in users:
-        a.append(user)
-    dbHandler.removeUsers(user)
-
+    dbHandler.editUsers(todo)
+    dbHandler.retrieveUsers(user_id)
     return redirect(url_for('index'))
 
-@app.route('/edit')
-def edit():
-    return 'okie'
+@app.route('/registry', methods=['GET', 'POST'])
+def registry():
+
+    error = None
+    if request.method == 'POST':
+        name = request.form['user']
+        pas = request.form['pass']
+        dbHandler.registryUser(name, pas)
+        dbHandler.selectUser()
+
+        re = redirect(url_for('login'))
+        re.set_cookie('use', name)
+        re.set_cookie('pas', pas)
+        return re
+    else:
+        error = 'False'
+    return render_template('registry.html', error=error)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

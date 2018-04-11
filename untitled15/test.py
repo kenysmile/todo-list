@@ -1,12 +1,23 @@
 import sqlite3
-string = 'Tung'
-con = sqlite3.connect('pvt.db')
-con = sqlite3.connect('pvt.db')
-cur = con.cursor()
-cur.execute("select * from User")
-username = cur.fetchall()
-for i,j in username:
-    if string == i:
-        print('Okie')
-    else:
-        print('No')
+import model as dbHandles
+
+a = []
+users = dbHandles.selectUser()
+
+#print(users)#
+def filter_value(someList, value):
+    for x, y in someList:
+        if x == value:
+            return 'Okie'
+        else:
+            return 'Error'
+
+print(filter_value(users, 'asdsadsdsa'))
+# a = ''.join(users)
+#
+    # for a in users:
+    #     if a == 'Tu':
+    #         print('Okie')
+    #     else:
+    #         print('False')
+

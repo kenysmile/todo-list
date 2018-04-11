@@ -29,17 +29,12 @@
           request.form.date }}">
         <input class="btn btn-default" type="submit" value="ADD">
       </form>
-      {% if error %}
-        <p class="error-index"><strong>Error:</strong>{{ error }}</p>
-      {% endif %}
 
-      <form action="" method="post" enctype="multipart/form-data">
-          <ul>
-              {% for user in users %}
-                  <li class="data-out" style="font-size: 20pt">{{ user }}<a href="{{ url_for('edit') }}">Edit</a><a href="{{ url_for('remove') }}">Remove</a></li>
-              {% endfor %}
-          </ul>
-      </form>>
+      <ul>
+          {% for user in users %}
+              <li class="data-out" style="font-size: 20pt">{{ user }}<a class="button-data" href="{{ url_for('remove') }}">Remove</a></li>
+          {% endfor %}
+      </ul>
 
 </body>
 </html>
