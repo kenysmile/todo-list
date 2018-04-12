@@ -33,9 +33,8 @@ def index():
         ngay = request.form['date']
         dbHandler.insertUsers(todo, user_id, ngay)
         data = dbHandler.retrieveUsers(user_id)
-        response1 = redirect(url_for('add'))
-        response1.set_cookie('user1', user_id)
-        return response1
+
+        return redirect(url_for('add'))
     else:
         return render_template('index.html', users = users, user_id = user_id)
 
@@ -70,22 +69,12 @@ def register():
         name = request.form['user']
         pas = request.form['pass']
         dbHandler.registerUser(name, pas)
-        #print(dbHandler.registerUser(name, pas))
-        return redirect(url_for('login'))
-    return render_template('register.html', error=error)
 
-    # if request.method == 'POST':
-    #     name = request.form['user']
-    #     pas = request.form['pass']
-    #     for i, j in items:
-    #         if i == name:
-    #             error = 'No'
-    #         else:
-    #
-    #             dbHandler.registerUser(name, pas)
-    #             #print(dbHandler.registerUser(name, pas))
-    #             return redirect(url_for('login'))
-    # return render_template('register.html', error=error)
+        return redirect(url_for('login'))
+    else:
+       # error = 'False'
+        return render_template('register.html', error=error)
+
 @app.route('/remove')
 def remove():
     a = []
@@ -98,20 +87,9 @@ def remove():
 
     return redirect(url_for('index'))
 
-@app.route('/edit', methods=['GET', 'POST'])
+@app.route('/edit')
 def edit():
-    user_id = request.cookies.get('user')
-
-    users = dbHandler.selectUserwhere(user_id)
-
-    if request.method == 'POST':
-        todoedit = request.form['todolist']
-        todo = dbHandler.retrieveUsers(user_id)
-        dbHandler.editUsers(todoedit, todo, user_id)
-        dbHandler.retrieveUsers(user_id)
-        return redirect(url_for('index'))
-
-    return render_template('edit.html', users = users, user_id = user_id)
+    return 'okie'
 
 if __name__ == '__main__':
     app.run(debug=True)
