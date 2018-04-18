@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+</head>
+<body>
+    <h3>Hello {{ username }}</h3>
+    <h2>Todo List</h2>
+    <div>
+        <form action="/search"  method="POST">
+            <input type="text" name="todo">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    {% if error %}
+    <p class="error-register"><strong>Error:</strong>{{ error }}</p>
+    {% endif %} 
+
+    <div>
+        <form action="" method="POST">
+            <h2>Item</h2>
+            <ul>
+                {% for todo in todos %}
+                    <li style="font-size: 30pt">{{ todo.todo }}     {{ todo.ngay }}</li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+
+</body>
+</html>

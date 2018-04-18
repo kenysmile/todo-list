@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Of Me......</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../static/lbs/w3.css">
+    <link rel="stylesheet" href="../static/index/index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="form-header" style="background:#7777">
+        <div class="container" style="text-align: right">
+            <p>hello {{ username }} <i class="fa fa-user" aria-hidden="true"></i>
+                <a href="{{ url_for('acess') }}">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                </a>
+            </p>
+        </div>
+        <h2 style="text-align:center">Todo List</h2>
+    </div>
+    <div class="formsearch" style="text-align:right">
+        <form action="/search"  method="POST">
+            <input type="text" name="todo">
+            <input type="submit" value="Search">
+        </form>        
+    </div>
+    <div class="formbody">
+        <div><h2>Task</h2> 
+            <form action="/add"  method="POST">
+                <input type="text" name="todo">
+                <input type="text" name="ngay">
+                <input type="submit" value="Add">
+            </form>
+            {% if error %}
+            <p class="error-register"><strong>Error:</strong>{{ error }}</p>
+            {% endif %}
+        </div>
+        <div class="formdata">
+            <form action="" method="POST">               
+
+                <ul>
+                    {% for todo in todos %}
+                        <li class="datatodo" style="font-size: 15pt"><input type="checkbox">{{ todo.todo }}     {{ todo.ngay }}</li>
+                        <a style="font-size: 10pt" href="{{ url_for('delete', id = todo.id) }}"> Delete</a> 
+                        <a class="btn" href="{{ url_for('update', id = todo.id) }}" method = 'UPDATE'> Update </a>
+                    {% endfor %}
+                </ul>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function()
+    {
+        $('.saveButton').click(function()
+        {
+            var id = $(this).data('id');
+        $(this).closest('tr').find('.todoClass').attr('readonly',true);
+        $(this).closest('tr').find('.ngayClass').attr('readonly',true);
+
+            $('.updateButton').show();
+            $('.saveButton').hide();
+            $('.cancleButton').hide();
+
+    $.ajax({
+        method: 'UPDATE',
+        url: 'http://localhost:5000/index'+id,
+        data: {
+            'todo': $(this).closest('tr').find('.todoClass').val(),
+            'ngay': $(this).closest('tr').find('.ngayClass').val(),
+         },
+        success: function(data) {
+            alert('Lưu thành công');}
+    });
+});
+});
+
+</script>
+

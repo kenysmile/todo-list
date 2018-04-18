@@ -1,0 +1,11 @@
+.datatodo {
+    margin: 70px;
+    /* border: 2px solid #4CAF50; */
+    width: 600px;
+    text-align: center
+}
+.pull {
+    width: 600px;
+    border: 2px solid blue;
+
+}
