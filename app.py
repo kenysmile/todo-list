@@ -1,32 +1,32 @@
 from flask import Flask, render_template, request, redirect, url_for, json, jsonify, session
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 # from flask_restful import Resource, Api
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tupham/PycharmProjects/phamvantu/data.db'
-# db = SQLAlchemy(app)
-# app.config['SECRET_KEY'] = 'super secret'    
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tupham/PycharmProjects/phamvantu/data.db'
+db = SQLAlchemy(app)
+app.config['SECRET_KEY'] = 'super secret'    
 
 # api = Api(app)
 
-# class Login(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(50), unique=True)
-#     password = db.Column(db.String(50))
-#     def __init__(self, username, password):
-#         self.username = username
-#         self.password = password
-# class Show(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     todo = db.Column(db.String(50))
-#     ngay = db.Column(db.String(50))
-#     name_id = db.Column(db.Integer, db.ForeignKey('login.id'))
-#     _name = db.relationship('Login')
-#     def __init__(self, todo, ngay, name_id):
-#         self.todo = todo
-#         self.ngay = ngay
-#         self.name_id = name_id
-# db.create_all()
+class Login(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True)
+    password = db.Column(db.String(50))
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+class Show(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    todo = db.Column(db.String(50))
+    ngay = db.Column(db.String(50))
+    name_id = db.Column(db.Integer, db.ForeignKey('login.id'))
+    _name = db.relationship('Login')
+    def __init__(self, todo, ngay, name_id):
+        self.todo = todo
+        self.ngay = ngay
+        self.name_id = name_id
+db.create_all()
 
 # class TodoRes(Resource):
 #     def post(self):
