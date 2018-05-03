@@ -58,9 +58,9 @@ class TodoRes(Resource):
 
 # api.add_resource(TodoRes, '/api/todo')
 
-@app.route('/')
-def home():
-    return redirect(url_for('acess'))
+# @app.route('/')
+# def home():
+#     return redirect(url_for('acess'))
 
 # @app.route('/index')
 # def index():
@@ -89,42 +89,42 @@ def home():
     
 #     return render_template('index.html', erroradd = erroradd)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    error2 = None
-    if request.method == 'POST':
-        new_user = request.form['a']
-        new_password = request.form['b']
-        new = Login(username=request.form['a'], password=request.form['b'])
-        user = Login.query.filter_by(username=new_user).first() # check user
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     error2 = None
+#     if request.method == 'POST':
+#         new_user = request.form['a']
+#         new_password = request.form['b']
+#         new = Login(username=request.form['a'], password=request.form['b'])
+#         user = Login.query.filter_by(username=new_user).first() # check user
     
-        if user: # check user exited
-            error2 = 'Account already exists'
-        else:
-            new = Login(username=request.form['a'], password=request.form['b'])
-            db.session.add(new)
-            db.session.commit()      
-            return redirect(url_for('acess'))
+#         if user: # check user exited
+#             error2 = 'Account already exists'
+#         else:
+#             new = Login(username=request.form['a'], password=request.form['b'])
+#             db.session.add(new)
+#             db.session.commit()      
+#             return redirect(url_for('acess'))
     
-    return render_template('register.html', error2 = error2)      
+#     return render_template('register.html', error2 = error2)      
 
-@app.route('/acess', methods=['GET', 'POST'])
-def acess():
-    erroracess = None
-    dblogin = Login.query.all()
-    if request.method == 'POST':
-        dblogin = Login.query.all()
-        POST_USERNAME = request.form['username']
-        POST_PASSWORD = request.form['password']
-        user = Login.query.filter_by(username=POST_USERNAME, password=POST_PASSWORD).first() # check user, pass Login
+# @app.route('/acess', methods=['GET', 'POST'])
+# def acess():
+#     erroracess = None
+#     dblogin = Login.query.all()
+#     if request.method == 'POST':
+#         dblogin = Login.query.all()
+#         POST_USERNAME = request.form['username']
+#         POST_PASSWORD = request.form['password']
+#         user = Login.query.filter_by(username=POST_USERNAME, password=POST_PASSWORD).first() # check user, pass Login
     
-        if user:
-            session['username'] = POST_USERNAME
-            return redirect(url_for('index'))
-        else:
-            erroracess = 'Incorrect password.!!!!!'
+#         if user:
+#             session['username'] = POST_USERNAME
+#             return redirect(url_for('index'))
+#         else:
+#             erroracess = 'Incorrect password.!!!!!'
     
-    return render_template('login.html', dblogin = dblogin, erroracess = erroracess)
+#     return render_template('login.html', dblogin = dblogin, erroracess = erroracess)
 
 # @app.route('/search', methods = ['GET','POST'])
 # def search():
