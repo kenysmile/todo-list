@@ -3,5 +3,6 @@ gunicorn
 gevent
 psycopg2
 alembic
-Flask-Migrate
-Flask-Script
+SQLAlchemy
+Flask-SQLAlchemy
+
