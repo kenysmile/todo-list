@@ -1,11 +1,89 @@
+.formbody {
+    /* padding-top: 60px; */
+    /* border: 2px solid #4CAF50;  */
+    position: static;
+}
+
 .datatodo {
     margin: 70px;
-    /* border: 2px solid #4CAF50; */
+    border: 2px solid #4CAF50;
     width: 600px;
-    text-align: center
+    text-align: center;
+    /* display: inline */
+}
+
+.formdata {
+    padding: 50px
+}
+
+.formsearch {
+    padding: 20px
 }
 .pull {
     width: 600px;
     border: 2px solid blue;
+    /* margin: 2px */
 
+
+}
+
+
+.btn-delete {
+    border: 1px solid ; 
+    /* text-align: center; */
+    padding: 5px;
+    /* background: blue */
+    display: inline-block;
+
+    padding: 4px 3px;
+    
+    margin-bottom: 0;
+    
+    font-size: 14px;
+    
+    font-weight: 400;
+    
+    line-height: 1.42857143;
+    
+    text-align: center;
+    
+    white-space: nowrap;
+    
+    vertical-align: middle
+
+
+}
+.btn-add {
+    text-align: left
+}
+
+.test-data {
+    display: inline block;
+    /* word-spacing: 80px */
+}
+
+.li:hover {
+    color: green
+}
+.body {
+    /* padding: 100px */
+}
+.homepage {
+    font-size: 20pt
+}
+.container {
+    font-size: 15pt
+}
+
+.username {
+    font-family: Georgia, serif;
+} 
+
+.text-header {
+    text-shadow: 2px 2px #FF0000;
+    font-family: Georgia, serif;
+}
+
+.btn btn-primary updateButton{
+    margin: 5px
 }
