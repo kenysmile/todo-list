@@ -2,10 +2,4 @@ beautifulSoup4
 flask
 gunicorn
 gevent
-# flask_sqlalchemy
-# flask-restful
-# SQLAlchemy
-alembic
-Flask-Migrate
-Flask-Script
 Flask-SQLAlchemy
