@@ -1,6 +1,7 @@
-beautifulSoup4
 flask
 gunicorn
 gevent
-Flask-SQLAlchemy
 psycopg2
+alembic
+Flask-Migrate
+Flask-Script
