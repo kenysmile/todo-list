@@ -2,5 +2,6 @@ beautifulSoup4
 flask
 gunicorn
 gevent
-flask_sqlalchemy
+# flask_sqlalchemy
 # flask-restful
+SQLAlchemy
