@@ -1,8 +1,4 @@
 flask
 gunicorn
 gevent
-psycopg2
-alembic
-SQLAlchemy
-Flask-SQLAlchemy
 
