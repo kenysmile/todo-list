@@ -1,9 +1,11 @@
 
-beautifulSoup4
-flask
+Flask
+Jinja2
+SQLAlchemy
+Werkzeug
+distribute
 gunicorn
+psycopg2
 gevent
-flask_sqlalchemy
-flask_restful
 
 
