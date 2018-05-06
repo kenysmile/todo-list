@@ -7,6 +7,6 @@ distribute
 gunicorn
 psycopg2
 gevent
-sqlite
+db.sqlite3
 
 
