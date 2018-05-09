@@ -1,12 +1,12 @@
 
-Flask
-Jinja2
-SQLAlchemy
-Werkzeug
-distribute
+flask
 gunicorn
 psycopg2
 gevent
-db.sqlite3
+alembic
+Flask-Migrate
+Flask-Script
+Flask-SQLAlchemy
+psycopg2
 
 
